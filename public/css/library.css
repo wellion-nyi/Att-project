@@ -1,0 +1,25 @@
+.mycontainer{
+font-family: Times New Roman;
+}
+.mynav a{
+	font-size: 20px;
+float: left;
+	margin-right:40px;
+}
+.mynav{
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	font-family: Times New Roman;
+
+}
+.image img{
+	width: 60px;
+}
+.mycard{
+	width: 9%;
+}
+.myjumbotron{
+	width: 40%;
+
+}
