@@ -25,7 +25,7 @@
 
 <div class="container pt-5">
     <div class="row justify-content-center">
-        <div class="col-md-5">
+        <div class="col-md-5 memlogin">
             <div class="card">
                 <div >
                     <h2 class="text-center pt-5 pb-5">Member Login</h2>

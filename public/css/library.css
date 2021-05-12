@@ -1,5 +1,21 @@
+div.dataTables_wrapper {
+        width: 100%;
+        margin: 0 auto;
+    }div.dataTables_wrapper {
+        width:100%;
+        margin: 0 auto;
+    }
+
+  
+
 .mycontainer{
 font-family: Times New Roman;
+background-color: #005564 !important;
+color: white;
+
+}
+.background{
+	color:#ffffff;
 }
 .mynav a{
 	font-size: 20px;
@@ -17,9 +33,123 @@ float: left;
 	width: 60px;
 }
 .mycard{
-	width: 9%;
+	width: 10%;
 }
+@media screen and (max:width: 77px){
+	.mymedia {
+		width: 27%;
+	}
+}
+/*@media screen and (min-width: 760) {
+  .mycard {
+    width: 27% !important;
+  }
+}*/
 .myjumbotron{
 	width: 40%;
 
 }
+.myhead{
+	font-family: Times New Roman;
+	background-color: #005564;
+	color: #ffffff;
+}
+
+.department{
+	margin-top: 100px;
+}
+.mytype{
+	background-color: #005564;
+	color: #ffffff;
+
+}
+.typescroll{
+	width: 100%;
+	height: 300px;
+	overflow: scroll;
+	
+}
+.cardbodyscroll{
+	padding: 0rem !important;
+}
+
+
+.mybook{
+	height: 300px;
+	overflow: scroll;
+}
+.login-doc{
+	width: 100%;
+	height: auto;
+	background-color: #005564;
+}
+.login-con{
+	padding-top:200px;
+	padding-bottom:400px;
+}
+.memlogin{
+padding: 150px 0px !important;
+}
+.memback{
+	background-color: #eeecec;
+}
+.front-image{	
+	background-image:cover;
+	
+	
+
+}
+.welcome{
+	
+	padding-top: 300px;
+	padding-bottom: 366px;
+
+}
+.front-image h1{
+	font-family: Times New Roman;
+	
+	padding: 20px 0px 40px 0px;
+	font-size: 80px;
+	color: white;
+	padding-top: 50px;
+	text-align: center;
+}
+.login{
+	text-decoration: none;
+	color: white;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #008640;
+	width: 200px;
+	padding: 24px 0px 20px 0px;
+	border-radius:30px;
+	background-color: none;
+	margin-bottom:30px;
+	box-shadow:10px 1px 20px black;
+}
+.register{
+
+	color: white;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #212c64;
+	padding: 24px 0px 20px 0px;
+	width: 200px;
+	border-radius:30px;
+	box-shadow:10px 1px 20px black;
+}
+
+}
+.logo-image{
+	width: 80px;
+	height: 80px;
+	border-radius:80px;
+}
+
+
+
+
+
+
+
+

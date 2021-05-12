@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Login | Page</title>
+    <title>Register | Page</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -25,7 +25,7 @@
 
 <div class="container pt-5">
     <div class="row justify-content-center">
-        <div class="col-md-5">
+        <div class="col-md-5 memlogin">
             <div class="card">
                 <div >
                       <h2 class="text-center pt-5 pb-5">Member Register</h2>
@@ -82,8 +82,7 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm Password">
                             </div>
                         
-                         <input type="file" name="upload">
-       
+                      
                              <div class=" form-group mt-5">
                              <input type="submit" value="Register" class="form-control " style="background-color: #212c64;color: white;">
                                     

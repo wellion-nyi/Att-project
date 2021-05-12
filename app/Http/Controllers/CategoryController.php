@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Book_category;
 use App\Department;
+use App\Book;
 
 class CategoryController extends Controller
 {
@@ -17,8 +18,9 @@ class CategoryController extends Controller
     public function index()
     {
           $departments=Department::all();
-        $categories=Book_category::all();
-       return view('book_category.index',compact('categories', 'departments'));
+        $categories=Book_category::orderby('name','ASC')->get();
+        $books=Book::all();
+       return view('book_category.index',compact('categories', 'departments','books'));
     }
 
     /**
@@ -58,7 +60,9 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $books=Book::where('bookcat_id','=',$id)->get();
+        $categories=Book_category::all();
+        return view('book_category.index',compact('books','categories'));
     }
 
     /**
@@ -69,7 +73,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categories=Book_category::findOrFail($id);
+        return view('book_category.edit',compact('categories'));
+
     }
 
     /**
@@ -81,7 +87,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+    $request->validate([
+        'category'=>'required|string',
+    ]);
+    $category=$request->category;
+    $categories=Book_category::findOrFail($id);
+    $categories->name=$category;
+    $categories->save();
+    return redirect('/books_category');
     }
 
     /**
@@ -92,6 +105,10 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (Book_category::where('id', $id)->delete()) {
+            return redirect()->back();
+        }else{
+             return redirect()->back();
+        }
     }
 }

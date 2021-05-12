@@ -19,8 +19,7 @@ class CreateBooksTable extends Migration
             $table->string('author',100);
             $table->string('code',50);
             $table->boolean('status');
-             $table->bigInteger('bor_id')->unsigned();
-            $table->foreign('bor_id')  ->references('id')->on('borrowers')->onDelete('cascade');
+            
              $table->bigInteger('bookcat_id')->unsigned();
             $table->foreign('bookcat_id')  ->references('id')->on('book_categories')->onDelete('cascade');
             $table->timestamps();

@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Illuminate\Http\Request;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-
+use File;
+use Auth;
 class RegisterController extends Controller
 {
     /*
@@ -37,7 +38,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('auth');
     }
 
     /**
@@ -70,6 +71,46 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
            
         ]);
+    }
+    public function edit($id)
+    {
+        $users=User::findOrFail($id);
+       return view('home.profile',compact('users'));
+    }
+
+
+    
+      public function update(Request $request, $id)
+    {
+       $request->validate([
+        'nameone'=>'required|string',
+        'upload'=>'mimes:jpg,png,jpeg,gif|max:5000',
+       ]);
+       $user=Auth::user()->findOrFail($id);
+       if ($request->hasFile('upload')) {
+           $image=$request->file('upload');
+           $photo=time().".".$image->getClientOriginalExtension();
+           $path=public_path('/storage/upload/');
+           $image->move($path,$photo);
+
+               if (isset($user->image)) {
+              $oldname=$user->image;
+              File::delete($path.' '.$oldname);
+           }
+
+        
+            $user->image=$photo; 
+
+       } 
+
+      
+       $nameone=$request->nameone;
+      $image=$request->upload;
+         
+        $user->name=$nameone;
+        if ($user->save()) {
+           return redirect('/default');
+        }
     }
 
 }

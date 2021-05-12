@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Department;
 use App\Book_category;
-
+use Auth;
+use App\Borrower;
+use App\Book;
 
 class DepartmentController extends Controller
 {
@@ -17,9 +19,11 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments=Department::all();
+        $departments=Department::orderby('name','ASC')->get();
+        $borrowers=Borrower::all();
+        $books=Book::all();
          $categories=Book_category::all();
-       return view('department.index',compact('categories','departments'));
+       return view('department.index',compact('categories','departments','borrowers','books'));
     }
 
     /**
@@ -57,8 +61,10 @@ class DepartmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
+    {   $departments=Department::all();
+       $borrowers=Borrower::where('dep_id','=',$id)->get();
+       $books=Book::all();
+       return view('department.index',compact('borrowers','books','departments'));
     }
 
     /**
@@ -69,7 +75,8 @@ class DepartmentController extends Controller
      */
     public function edit($id)
     {
-        //
+       $departments=Department::findOrFail($id);
+        return view('department.edit',compact('departments'));
     }
 
     /**
@@ -81,7 +88,15 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+        'department'=>'required|string',
+    ]);
+        
+    $department=$request->department;
+    $departments=Department::findOrFail($id);
+    $departments->name=$department;
+    $departments->save();
+    return redirect('/department');
     }
 
     /**
@@ -92,6 +107,42 @@ class DepartmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+           if (Department::where('id', $id)->delete()) {
+            return redirect()->back();
+        }else{
+             return redirect()->back();
+        }
     }
+
+
+         public function filter(Request $request){
+       
+        $date=$request->date;
+       
+        $splitdate = explode('-', $date); // 12/22
+        if($request->datecheck=='day'){
+            $borrowers=Borrower::whereDate('end_at', $date)->get();
+            $date=$date;
+        }elseif($request->datecheck=='month'){
+            $month =$splitdate[1];
+            $year=$splitdate[0];
+            $borrowers=Borrower::whereMonth('end_at', $month)->whereYear('date', $year)->get();
+            $date=$year.'-'.$month;
+        }else{
+            $year=$splitdate[0];
+            $borrowers=Borrower::whereYear('end_at', $year)->get();
+            $date=$year;
+        }
+        //for more
+       
+        $departments=Department::all();
+        return view('department.index', compact('borrowers', 'date','departments'));
+}
+       
+ 
+
+
+
+
+
 }
